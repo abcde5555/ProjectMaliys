@@ -19,13 +19,15 @@ public class MenuManager_M extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_manager__m);
 
-        //Adding Toolbar to Main screen
+        //툴바
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //하단 호출 페이지(Fragment)
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
+        //탭(메뉴탭)
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
@@ -33,7 +35,11 @@ public class MenuManager_M extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
+
+        //일기목록 페이지 호출
         adapter.addFragment(new DiaryList_S(), "일기목록");
+
+        //달력검색 페이지 호출
         adapter.addFragment(new CalendarSearch_M(), "달력검색");
     }
 
