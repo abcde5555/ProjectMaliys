@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, LoadingPage_M.class);
         startActivity(intent);  //로딩페이지 시작
+        this.finish();
     }
 
     //여긴 메인 왠만하면 건들지 않기~~
