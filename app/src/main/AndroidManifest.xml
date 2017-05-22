@@ -24,6 +24,8 @@
         </activity>
         <activity android:name=".DiaryPage_S">
         </activity>
+        <activity android:name=".LoadingPage_M">
+        </activity>
     </application>
 
 </manifest>
