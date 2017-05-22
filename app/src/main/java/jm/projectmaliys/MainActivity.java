@@ -10,4 +10,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
+    //여긴 메인 왠만하면 건들지 않기~~
 }
