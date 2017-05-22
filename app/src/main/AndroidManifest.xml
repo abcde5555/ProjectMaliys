@@ -20,6 +20,10 @@
         </activity>
         <activity android:name=".CalendarSearch_M">
         </activity>
+        <activity android:name=".DiaryList_S">
+        </activity>
+        <activity android:name=".DiaryPage_S">
+        </activity>
     </application>
 
 </manifest>
