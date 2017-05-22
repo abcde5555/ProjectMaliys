@@ -1,3 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="diary_date">
+        <item></item>
+    </string-array>
+    <string-array name="diary_briefcon">
+        <item></item>
+    </string-array>
+    <string-array name="diary_contents">
+        <item></item>
+    </string-array>
+    <string-array name="diary_avator">
+        <item></item>
+    </string-array>
+    <string-array name="diary_picture">
+        <item></item>
+    </string-array>
 </resources>

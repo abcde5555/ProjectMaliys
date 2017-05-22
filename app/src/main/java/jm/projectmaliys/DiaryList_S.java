@@ -3,6 +3,7 @@ package jm.projectmaliys;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,12 +35,13 @@ public class DiaryList_S extends Fragment {
         //리스트- 썸네일, 날짜, 간단한 내용
         public ImageView avator;
         public TextView name;
-        public TextView description;
+        public TextView briefcontent;
 
         public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.activity_diary_list_s, parent, false));
+            super(inflater.inflate(R.layout.activity_diary_list__s, parent, false));
             avator = (ImageView) itemView.findViewById(R.id.list_avatar);
             name = (TextView) itemView.findViewById(R.id.list_title);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -59,13 +61,27 @@ public class DiaryList_S extends Fragment {
         // Set numbers of List in RecyclerView.
         private static final int LENGTH = 18;
 
+        private final String[] dDates;
+        private final String[] dBrifcon;
+        //private final Drawable[] dAvator;
+
         public ContentAdapter(Context context) {
             Resources resources = context.getResources();
+            dDates = resources.getStringArray(R.array.diary_date);
+            dBrifcon = resources.getStringArray(R.array.diary_briefcon);
+            TypedArray a = resources.obtainTypedArray(R.array.diary_avator);
 
         }
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             return new ViewHolder(LayoutInflater.from(parent.getContext()), parent);
+        }
+
+        @Override
+        public void onBindViewHolder(ViewHolder holder, int position) {
+            //holder.avator.setImageDrawable(mPlaceAvators[position % mPlaceAvators.length]);
+            //holder.name.setText(mPlaces[position % mPlaces.length]);
+            //holder.briefcontent.setText(mPlaceDesc[position % mPlaceDesc.length]);
         }
 
         @Override
