@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +19,8 @@ public class MenuManager_M extends AppCompatActivity {
         setContentView(R.layout.activity_menu_manager__m);
 
         //툴바
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
         //하단 호출 페이지(Fragment)
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -30,6 +29,8 @@ public class MenuManager_M extends AppCompatActivity {
         //탭(메뉴탭)
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
+
+//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view)
 
     }
 
@@ -41,6 +42,8 @@ public class MenuManager_M extends AppCompatActivity {
 
         //달력검색 페이지 호출
         adapter.addFragment(new CalendarSearch_M(), "달력검색");
+
+        viewPager.setAdapter(adapter);
     }
 
     static class Adapter extends FragmentPagerAdapter {
