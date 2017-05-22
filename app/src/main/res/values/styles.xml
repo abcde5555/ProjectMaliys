@@ -8,4 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="LoadingPageTheme" parent="AppTheme">
+        <item name="@android:style/Theme.NoTitleBar.Fullscreen"/>
+    </style>
+
 </resources>
