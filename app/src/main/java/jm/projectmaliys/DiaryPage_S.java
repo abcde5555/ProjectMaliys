@@ -7,3 +7,4 @@ package jm.projectmaliys;
 public class DiaryPage_S
 {
 }
+//huhuhu
