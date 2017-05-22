@@ -3,8 +3,6 @@ package jm.projectmaliys;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,14 +13,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-/**
- * Provides UI for the view with List.
- */
 public class DiaryList_S extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        //리사이클러뷰
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(
                 R.layout.recycler_view_s, container, false);
         ContentAdapter adapter = new ContentAdapter(recyclerView.getContext());
@@ -33,9 +30,12 @@ public class DiaryList_S extends Fragment {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+
+        //리스트- 썸네일, 날짜, 간단한 내용
         public ImageView avator;
         public TextView name;
         public TextView description;
+
         public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.activity_diary_list_s, parent, false));
             avator = (ImageView) itemView.findViewById(R.id.list_avatar);
