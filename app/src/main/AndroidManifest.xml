@@ -24,7 +24,9 @@
         </activity>
         <activity android:name=".DiaryPage_S">
         </activity>
-        <activity android:name=".LoadingPage_M">
+        <activity
+            android:name=".LoadingPage_M"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>
     </application>
 
