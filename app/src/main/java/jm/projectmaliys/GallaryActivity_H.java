@@ -46,7 +46,7 @@ public class GallaryActivity_H extends AppCompatActivity {
             }
         });
 
-        // 각 이미지 터치 시 이벤트 핸들링
+        // 각 이미지 터치 시 이벤트 핸들링 (세부 내용 작성 필요)
         _recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
 
             @Override
