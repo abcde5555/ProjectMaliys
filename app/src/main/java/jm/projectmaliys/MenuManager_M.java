@@ -33,8 +33,8 @@ public class MenuManager_M extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new ListContentFagment(), "일기목록");
-
+        adapter.addFragment(new DiaryList_S(), "일기목록");
+        adapter.addFragment(new CalendarSearch_M(), "달력검색");
     }
 
     static class Adapter extends FragmentPagerAdapter {
@@ -56,8 +56,14 @@ public class MenuManager_M extends AppCompatActivity {
             return mFragmentList.size();
         }
 
+        public void addFragment(Fragment fragment, String title){
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
 
+        @Override
+        public CharSequence getPageTitle(int position){
+            return mFragmentTitleList.get(position);
+        }
     }
-
-
 }
