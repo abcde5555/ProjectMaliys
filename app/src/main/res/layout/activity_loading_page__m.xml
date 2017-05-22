@@ -10,5 +10,5 @@
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/NightSky"/>
+        app:srcCompat="@drawable/nightsky"/>
 </android.support.constraint.ConstraintLayout>
