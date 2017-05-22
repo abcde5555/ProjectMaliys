@@ -37,7 +37,7 @@ public class DiaryList_S extends Fragment {
         public TextView description;
 
         public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.activity_diary_list_s, parent, false));
+            super(inflater.inflate(R.layout.activity_diary_list__s, parent, false));
             avator = (ImageView) itemView.findViewById(R.id.list_avatar);
             name = (TextView) itemView.findViewById(R.id.list_title);
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +66,11 @@ public class DiaryList_S extends Fragment {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             return new ViewHolder(LayoutInflater.from(parent.getContext()), parent);
+        }
+
+        @Override
+        public void onBindViewHolder(ViewHolder holder, int position) {
+
         }
 
         @Override
