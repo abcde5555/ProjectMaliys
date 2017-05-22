@@ -28,7 +28,7 @@ public class GallaryActivity_H extends AppCompatActivity {
 
         _recyclerView = (RecyclerView) findViewById(R.id.recycler_daily_gall);
 
-        ArrayList<Photo> photos = new ArrayList<>(); // 갤러리에 연결될 데이터셋 모델
+        ArrayList<Photo_H> photos = new ArrayList<>(); // 갤러리에 연결될 데이터셋 모델
         // (select from 문으로 얻어오는 메서드 작성해서 교체할 것)
 
         // 어댑터 생성 및 설정
@@ -77,10 +77,10 @@ public class GallaryActivity_H extends AppCompatActivity {
 
     // 갤러리 어댑터는 내부클래스로 구현
     private class GallaryAdapter extends RecyclerView.Adapter<ViewHolder> {
-        ArrayList<Photo> _photos;
+        ArrayList<Photo_H> _photos;
 
         // 생성자
-        public GallaryAdapter(ArrayList<Photo> photos) {
+        public GallaryAdapter(ArrayList<Photo_H> photos) {
             _photos = photos;
         }
 
@@ -93,7 +93,7 @@ public class GallaryActivity_H extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            Photo photo = _photos.get(position);
+            Photo_H photo = _photos.get(position);
             holder.imageView.setBackground(photo.getDrawableImage());
             holder.text.setText(photo.getShortenText());
         }
