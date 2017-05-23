@@ -132,7 +132,7 @@ public class GallaryActivity_H extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(GallaryActivity_H.this);
 
         LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
-        View layout = inflater.inflate(R.layout.expanded_image_dialog, null);
+        View layout = inflater.inflate(R.layout.expanded_image_dialog_h, null);
         ImageView image = (ImageView)layout.findViewById(R.id.img_expanded);
         image.setImageURI(uri);
 
