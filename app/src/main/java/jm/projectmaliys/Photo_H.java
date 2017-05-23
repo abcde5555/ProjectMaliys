@@ -3,7 +3,7 @@ package jm.projectmaliys;
 import android.graphics.drawable.Drawable;
 
 // 일별 갤러리에 들어갈 데이터셋 모델
-public class Photo {
+public class Photo_H {
     
     //region drawableImage
     private Drawable _drawableImage;

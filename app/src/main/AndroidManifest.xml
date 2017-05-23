@@ -20,9 +20,7 @@
         </activity>
         <activity android:name=".DiaryPage_S">
         </activity>
-        <activity
-            android:name=".LoadingPage_M"
-            android:theme="@style/LoadingPageTheme">
+        <activity android:name=".LoadingPage_M">
         </activity>
     </application>
 
