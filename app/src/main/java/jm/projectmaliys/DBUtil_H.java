@@ -10,8 +10,7 @@ import android.widget.Toast;
 // DB 관리
 public class DBUtil_H {
 
-    private static final String dbName = "";
-    private static final String tableName = "";
+    private static final String dbName = "diarys.db";
     private static final int dbVersion = 1;
 
     private OpenHelper _openHelper;
@@ -57,6 +56,7 @@ public class DBUtil_H {
 
     // 다이어리 자세히 보기
     public Cursor selectDiary() {
+        db.query("diary", new String[] {"",""},"selection", new String[] {"",""},null,null,"orderBy");
         return null;
     }
 
@@ -71,8 +71,12 @@ public class DBUtil_H {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            String createTableQuery = "";
-            db.execSQL(createTableQuery);
+            String createTableDiary = "";
+            String createTableImage = "";
+            String createTableMaps = "";
+
+            db.execSQL(createTableDiary);
+
             Toast.makeText(_context, "DB is opened", Toast.LENGTH_SHORT).show();
         }
 
