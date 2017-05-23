@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
+import android.widget.Toast;
 
 //달력검색 클래스
 public class CalendarSearch_M extends Fragment {
@@ -15,24 +17,22 @@ public class CalendarSearch_M extends Fragment {
 
         View view = inflater.inflate(R.layout.activity_calendar_search__m, null);
 
-        return view;
-//        setContentView(R.layout.activity_calendar_search__m);
+        final CalendarView calendarView = (CalendarView) view.findViewById(R.id.calendar);
 
-//        CalendarView calendarView = (CalendarView) findViewById(R.id.calendar);
-//
-//        //리스너 등록
-//        calendarView.setOnDateChangeListener(
-//                new CalendarView.OnDateChangeListener(){
-//
-//                    @Override
-//                    public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMenth){
-//                        Toast.makeText(
-//                                CalendarViewTest.this,
-//                                year+"/"+(month+1)+"/"+dayOfMenth,
-//                                0
-//                                ).show();
-//                    }
-//                });
-//        return calendarView;
+
+        //리스너 등록
+        calendarView.setOnDateChangeListener(
+                new CalendarView.OnDateChangeListener(){
+
+                    @Override
+                    public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMenth){
+                        Toast.makeText(
+                                getActivity(),
+                                year+"/"+(month+1)+"/"+dayOfMenth,
+                                Toast.LENGTH_SHORT
+                                ).show();
+                    }
+                });
+        return view;
     }
 }

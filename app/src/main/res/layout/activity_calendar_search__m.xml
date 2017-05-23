@@ -12,10 +12,6 @@
         android:id="@+id/calendar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:focusedMonthDateColor="#ff0000"
-        android:unfocusedMonthDateColor="#0000ff"
-        android:selectedWeekBackgroundColor="#ffff00"
-        android:showWeekNumber="false"
-        android:weekSeparatorLineColor="#00ff00"/>
+        android:showWeekNumber="false"/>
 
 </LinearLayout>
