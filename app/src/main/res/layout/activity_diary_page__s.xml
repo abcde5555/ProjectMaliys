@@ -1,18 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                 xmlns:tools="http://schemas.android.com/tools"
-                                                 android:id="@+id/detail_content"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent"
-                                                 android:fitsSystemWindows="true">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:id="@+id/detail_content"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:fitsSystemWindows="true">
 
 
     <Button
         android:id="@+id/btnMap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
         android:onClick="onBtnMapClicked"
-        android:text="Map"/>
-</android.support.design.widget.CoordinatorLayout>
+        android:text="Map"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintTop_creator="1"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="33dp"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <LinearLayout
+
+        android:id="@+id/action_container"
+        android:layout_width="337dp"
+        android:layout_height="290dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="13dp"
+        android:orientation="vertical"
+        app:layout_constraintHorizontal_bias="0.027"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnMap"
+        tools:layout_conversion_absoluteHeight="286dp"
+        tools:layout_conversion_absoluteWidth="320dp"
+        tools:layout_conversion_absoluteX="0dp"
+        tools:layout_conversion_absoluteY="136dp"
+        >
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:ems="10"
+        android:hint="텍스트 입력"
+        android:inputType="textPersonName"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/action_container"
+        tools:layout_conversion_absoluteHeight="107dp"
+        tools:layout_conversion_absoluteWidth="338dp"
+        tools:layout_conversion_absoluteX="0dp"
+        tools:layout_conversion_absoluteY="422dp"
+        android:layout_marginTop="20dp"/>
+
+
+</android.support.constraint.ConstraintLayout>

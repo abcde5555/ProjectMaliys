@@ -91,7 +91,6 @@ public class GoogleMapsApi_S extends AppCompatActivity implements OnMapReadyCall
         }
         gMap.setMyLocationEnabled(true);
 
-
         //이벤트 처리하기
         gMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
