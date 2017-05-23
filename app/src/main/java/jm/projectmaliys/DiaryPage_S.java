@@ -1,17 +1,24 @@
 package jm.projectmaliys;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
-public class DiaryPage_S extends AppCompatActivity {
-
+public class DiaryPage_S extends AppCompatActivity
+{
     public static final String EXTRA_POSITION = "position";
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary_page__s);
 
@@ -24,6 +31,32 @@ public class DiaryPage_S extends AppCompatActivity {
         TypedArray diaryPictures = resources.obtainTypedArray(R.array.diary_picture);
         ImageView diaryPicture = (ImageView) findViewById(R.id.image);
         diaryPictures.recycle();
+
+    }
+
+    public void onBtnMapClicked(View v)
+    {
+        LinearLayout container =
+                (LinearLayout) findViewById(R.id.action_container);
+        LayoutInflater inflater =
+                (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.google_maps_api__s, container, true);
+
+        Button button2 = (Button) container.findViewById(R.id.btnMap);
+        button2.setOnClickListener(
+                new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        Toast.makeText(
+                                getApplicationContext(),
+                                "구글 지도 검색",
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                }
+        );
 
     }
 }

@@ -74,5 +74,6 @@ public class MenuManager_M extends AppCompatActivity {
         public CharSequence getPageTitle(int position){
             return mFragmentTitleList.get(position);
         }
+
     }
 }

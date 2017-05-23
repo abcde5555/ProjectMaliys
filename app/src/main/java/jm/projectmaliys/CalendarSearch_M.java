@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.Toast;
 
+
 //달력검색 클래스
 public class CalendarSearch_M extends Fragment {
 
@@ -33,6 +34,26 @@ public class CalendarSearch_M extends Fragment {
                                 ).show();
                     }
                 });
+
+
+
+        /*
+        calendarView.setOnScrollChangeListener(
+                new CalendarView.OnScrollChangeListener(){
+
+                    @Override
+                    public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY)
+                    {
+
+                    }
+
+                }
+        );
+        */
+
         return view;
     }
+
+
+
 }
