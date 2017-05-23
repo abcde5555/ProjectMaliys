@@ -18,8 +18,8 @@ public class CalendarSearch_M extends Fragment {
 
         View view = inflater.inflate(R.layout.activity_calendar_search__m, null);
 
+        //리스너 사용을 위해 캘린더뷰 타입으로
         final CalendarView calendarView = (CalendarView) view.findViewById(R.id.calendar);
-
 
         //리스너 등록
         calendarView.setOnDateChangeListener(
