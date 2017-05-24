@@ -45,8 +45,7 @@ public class GoogleMapsApi_S extends Fragment
         implements OnMapReadyCallback ,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener
-{
+        LocationListener {
     private static final LatLng DEFAULT_LOCATION = new LatLng(37.56, 126.97);
     private static final String TAG = "googlemap";
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
@@ -65,8 +64,7 @@ public class GoogleMapsApi_S extends Fragment
     private String[] LikelyAttributions = null;
     private LatLng[] LikelyLatLngs = null;
 
-    public GoogleMapsApi_S()
-    {
+    public GoogleMapsApi_S() {
 // required
     }
 
@@ -106,8 +104,6 @@ public class GoogleMapsApi_S extends Fragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-
         View layout = inflater.inflate(R.layout.activity_google_maps_api__s, container, false);
 
         mapView = (MapView)layout.findViewById(R.id.map);
