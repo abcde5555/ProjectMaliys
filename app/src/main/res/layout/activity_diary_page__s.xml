@@ -1,95 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/detail_content"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:id="@+id/detail_content"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:fitsSystemWindows="true">
+
 
     <ScrollView
-        android:layout_width="368dp"
-        android:layout_height="495dp"
-        tools:layout_editor_absoluteY="8dp"
-        tools:layout_editor_absoluteX="8dp">
+        android:layout_width="405dp"
+        android:layout_height="643dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:weightSum="1">
 
             <Button
                 android:id="@+id/btnMap"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_marginLeft="26dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="33dp"
+                android:layout_weight="0.15"
                 android:onClick="onBtnMapClicked"
-                android:text="Map"/>
+                android:text="Map"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_constraintLeft_creator="1"
+                tools:layout_constraintTop_creator="1"/>
 
             <LinearLayout
+
                 android:id="@+id/action_container"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="21dp"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="visible"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnMap"
+                tools:layout_conversion_absoluteHeight="286dp"
+                tools:layout_conversion_absoluteWidth="320dp"
+                tools:layout_conversion_absoluteX="0dp"
+                tools:layout_conversion_absoluteY="136dp">
 
             </LinearLayout>
-
-            <ImageView
-                android:id="@+id/image_main"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:layout_marginTop="8dp"/>
-
-            <RadioGroup
-                android:id="@+id/radioGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:labelFor="@id/radioGroup"
-                    android:text="@string/todays_wheather"
-                    android:textSize="16sp"
-                    android:textAlignment="center"/>
-                <RadioButton
-                    android:id="@+id/rb_sun"
-                    android:button="@drawable/radio_sun"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <RadioButton
-                    android:id="@+id/rb_cloud"
-                    android:button="@drawable/radio_cloud"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <RadioButton
-                    android:id="@+id/rb_rain"
-                    android:button="@drawable/radio_rain"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <RadioButton
-                    android:id="@+id/rb_snow"
-                    android:button="@drawable/radio_snow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </RadioGroup>
 
             <EditText
                 android:id="@+id/editText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:hint="오늘 하루는 어땠나요"
-                android:gravity="top"
-                android:inputType="text"
-                android:lines="10"
-                android:maxLines="15"
-                android:scrollHorizontally="false"/>
+                android:layout_height="80dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="39dp"
+                android:ems="10"
+                android:hint="텍스트 입력"
+                android:inputType="textPersonName"
+                app:layout_constraintHorizontal_bias="0.494"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/action_container"
+                tools:layout_conversion_absoluteHeight="107dp"
+                tools:layout_conversion_absoluteWidth="338dp"
+                tools:layout_conversion_absoluteX="0dp"
+                tools:layout_conversion_absoluteY="422dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="30dp"
+                android:layout_weight="0.15"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/recordBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="onRecordBtnClicked"
+                    android:text="녹음"/>
+
+                <Button
+                    android:id="@+id/recordStopBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="녹음중지"/>
+
+                <Button
+                    android:id="@+id/playBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="재생"/>
+
+                <Button
+                    android:id="@+id/playStopBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="재생중지"/>
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 

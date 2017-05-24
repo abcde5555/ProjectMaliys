@@ -3,8 +3,11 @@ package jm.projectmaliys;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.media.MediaPlayer;
+import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -41,4 +44,17 @@ public class DiaryPage_S extends AppCompatActivity
         inflater.inflate(R.layout.activity_google_maps_api__s, container, true);
 
     }
+
+    final private static String RECORDED_FILE = "/sdcard/recorded.mp4";
+
+    MediaPlayer player;
+    MediaRecorder recorder;
+
+
+    public void onRecordBtnClicked(View v) {
+        View.OnClickListener() {
+
+        }
+    }
+
 }

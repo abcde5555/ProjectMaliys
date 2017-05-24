@@ -231,8 +231,6 @@ public class GoogleMapsApi_S extends Fragment
 
             googleMap.setMyLocationEnabled(true);
         }
-
-
     }
 
     private void buildGoogleApiClient() {
@@ -256,6 +254,7 @@ public class GoogleMapsApi_S extends Fragment
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
+
         if ( !checkLocationServicesStatus()) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle("위치 서비스 비활성화");
@@ -365,5 +364,6 @@ public class GoogleMapsApi_S extends Fragment
         });
 
     }
+
 }
 
