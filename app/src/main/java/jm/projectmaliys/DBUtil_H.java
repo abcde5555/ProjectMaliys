@@ -71,18 +71,32 @@ public class DBUtil_H {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            String createTableDiary = "";
-            String createTableImage = "";
-            String createTableMaps = "";
+            String createQuery = "CREATE TABLE IF NOT EXIST ";
+            String diaryTable = "diary(d_date TEXT PRIMARY KEY," +
+                    " d_weather TEXT," +
+                    " d_content TEXT NOT NULL)";
+            String mapTable = "map(m_number INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    " d_date TEXT NOT NULL," +
+                    " m_time TEXT, m_xPoint TEXT NOT NULL," +
+                    " m_yPoint TEXT NOT NULL," +
+                    " FOREIGN KEY(d_date) REFERENCES diary(d_date)" +
+                    ")";
+            String imageTable = "image(i_number INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    " d_date TEXT NOT NULL," +
+                    " i_path TEXT NOT NULL" +
+                    " FOREIGN KEY(d_date) REFERENCES diary(d_date)" +
+                    ")";
 
-            db.execSQL(createTableDiary);
+            db.execSQL(createQuery + diaryTable);
+            db.execSQL(createQuery + mapTable);
+            db.execSQL(createQuery + imageTable);
 
             Toast.makeText(_context, "DB is opened", Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            Log.i("onUpgrade()", "Database is upgraded from "+ oldVersion + " to " + newVersion);
+            Log.i("onUpgrade()", "Database is upgraded from " + oldVersion + " to " + newVersion);
             Toast.makeText(_context,
                     "Database is upgraded from " + oldVersion +
                             " to " + newVersion, Toast.LENGTH_SHORT)
