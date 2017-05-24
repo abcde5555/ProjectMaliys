@@ -2,6 +2,7 @@ package jm.projectmaliys;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -13,54 +14,37 @@ public class DBUtil_H {
     private static final String dbName = "diarys.db";
     private static final int dbVersion = 1;
 
-    private OpenHelper _openHelper;
-    private SQLiteDatabase db;
-
     private Context _context;
+    private SQLiteDatabase db;
 
     public DBUtil_H(Context context) {
         _context = context;
-        _openHelper = new OpenHelper(context, dbName, null, dbVersion);
-        db = _openHelper.getWritableDatabase();
+        OpenHelper openHelper = new OpenHelper(context, dbName, null, dbVersion);
+        db = openHelper.getWritableDatabase();
     }
 
-    // 다이어리 추가
-    public int insertDiary() {
-
-        return 1;
+    // INSET, UPDATE, DELETE 문 실행
+    public int executeDML(String sql) {
+        int result = 0;
+        try {
+            db.execSQL(sql);
+            result++;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
-    // 다이어리 수정
-    public int updateDiary() {
-
-        return 1;
+    // SELECT 문 실행
+    public Cursor executeQuery(String sql, String[] selectionArgs) {
+        Cursor result = null;
+        try {
+            result = db.rawQuery(sql, selectionArgs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
-
-    // 다이어리 사진 추가
-    public int updateDiaryPhotos() {
-
-        return 0;
-    }
-
-    // 다이어리 삭제
-    public int deleteDiary() {
-
-        return 0;
-    }
-
-    // 다이어리 목록보기
-    public Cursor selectAllDiary() {
-
-        return null;
-    }
-
-    // 다이어리 자세히 보기
-    public Cursor selectDiary() {
-
-        return null;
-    }
-
-
 
     // 데이터베이스를 열거나 업그레이드하는 것을 도와주는 내부 클래스
     private class OpenHelper extends SQLiteOpenHelper {

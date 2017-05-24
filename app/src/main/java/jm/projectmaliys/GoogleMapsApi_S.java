@@ -73,15 +73,16 @@ public class GoogleMapsApi_S extends Fragment
     public void setCurrentLocation(Location location, String markerTitle, String markerSnippet) {
         if ( currentMarker != null ) currentMarker.remove();
 
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.title(markerTitle);
+        markerOptions.snippet(markerSnippet);
+        markerOptions.draggable(true);
+
         if ( location != null) {
 //현재위치의 위도 경도 가져옴
             LatLng currentLocation = new LatLng( location.getLatitude(), location.getLongitude());
 
-            MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(currentLocation);
-            markerOptions.title(markerTitle);
-            markerOptions.snippet(markerSnippet);
-            markerOptions.draggable(true);
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
             currentMarker = this.googleMap.addMarker(markerOptions);
 
@@ -89,11 +90,7 @@ public class GoogleMapsApi_S extends Fragment
             return;
         }
 
-        MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(DEFAULT_LOCATION);
-        markerOptions.title(markerTitle);
-        markerOptions.snippet(markerSnippet);
-        markerOptions.draggable(true);
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
         currentMarker = this.googleMap.addMarker(markerOptions);
 
@@ -107,9 +104,8 @@ public class GoogleMapsApi_S extends Fragment
 
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
         View layout = inflater.inflate(R.layout.activity_google_maps_api__s, container, false);
