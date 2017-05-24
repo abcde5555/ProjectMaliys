@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="jm.projectmaliys">
 
+<uses-permission android:name="android.permission.INTERNET"/>
+<!-- Required to show current location -->
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <!-- Required to show current location -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
@@ -17,21 +23,33 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+<application
+    android:allowBackup="true"
+    android:icon="@drawable/icon2"
+    android:label="@string/app_name"
+    android:roundIcon="@drawable/icon2"
+    android:supportsRtl="true"
+    android:theme="@style/AppTheme">
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
-        <activity android:name=".MenuManager_M">
-        </activity>
-        <activity android:name=".DiaryPage_S">
-        </activity>
-        <activity android:name=".LoadingPage_M">
-        </activity>
+    <activity android:name=".MainActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN"/>
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDTyjvqwE09EsAjLCe8_9UWKXie0oLXEQ0"/>
+            <category android:name="android.intent.category.LAUNCHER"/>
+        </intent-filter>
+    </activity>
+    <activity android:name=".MenuManager_M">
+    </activity>
+    <activity android:name=".DiaryPage_S">
+    </activity>
+    <activity android:name=".LoadingPage_M">
+    </activity>
 
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyDTyjvqwE09EsAjLCe8_9UWKXie0oLXEQ0"/>
+
+</application>
         <activity android:name=".TagChoice_M">
         </activity>
     </application>
