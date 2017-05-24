@@ -1,8 +1,11 @@
 package jm.projectmaliys;
 
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 public class TagChoice_M extends AppCompatActivity {
 
@@ -13,7 +16,6 @@ public class TagChoice_M extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tag_choice__m);
 
@@ -22,12 +24,12 @@ public class TagChoice_M extends AppCompatActivity {
         ImageButton imgbtnrain = (ImageButton) findViewById(R.id.btnrain);
         ImageButton imgbtnsnow = (ImageButton) findViewById(R.id.btnsnow);
 
-//        imgbtnsun.setImageResource(R.drawable.sun2);
-
         imgbtnsun.setOnClickListener(v -> OnClickImgBtn(imgbtnsun));
         imgbtncloud.setOnClickListener(v -> OnClickImgBtn(imgbtncloud));
         imgbtnrain.setOnClickListener(v -> OnClickImgBtn(imgbtnrain));
         imgbtnsnow.setOnClickListener(v -> OnClickImgBtn(imgbtnsnow));
+
+
     }
 
     public void OnClickImgBtn(ImageButton imgbtn) {
@@ -65,4 +67,6 @@ public class TagChoice_M extends AppCompatActivity {
             }
         }
     }
+
+
 }
