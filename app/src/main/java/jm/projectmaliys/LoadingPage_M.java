@@ -24,7 +24,7 @@ public class LoadingPage_M extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        },800);
+        },1000);
     }
 
 
