@@ -4,4 +4,5 @@
     <string name="item_title">2017/05/22</string>
     <string name="item_desc">하루가 힘들다...</string>
     <string name="btn_text_add_image">이미지 추가</string>
+    <string name="title_activity_google_maps_api__s">Map</string>
 </resources>

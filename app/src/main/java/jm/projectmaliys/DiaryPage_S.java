@@ -38,7 +38,7 @@ public class DiaryPage_S extends AppCompatActivity
                 (LinearLayout) findViewById(R.id.action_container);
         LayoutInflater inflater =
                 (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.google_maps_api__s, container, true);
+        inflater.inflate(R.layout.activity_google_maps_api__s, container, true);
 
     }
 }
