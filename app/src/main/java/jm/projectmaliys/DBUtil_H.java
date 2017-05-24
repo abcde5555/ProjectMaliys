@@ -56,7 +56,7 @@ public class DBUtil_H {
 
     // 다이어리 자세히 보기
     public Cursor selectDiary() {
-        db.query("diary", new String[] {"",""},"selection", new String[] {"",""},null,null,"orderBy");
+
         return null;
     }
 
@@ -72,15 +72,18 @@ public class DBUtil_H {
         @Override
         public void onCreate(SQLiteDatabase db) {
             String createQuery = "CREATE TABLE IF NOT EXIST ";
+
             String diaryTable = "diary(d_date TEXT PRIMARY KEY," +
                     " d_weather TEXT," +
                     " d_content TEXT NOT NULL)";
+
             String mapTable = "map(m_number INTEGER PRIMARY KEY AUTOINCREMENT," +
                     " d_date TEXT NOT NULL," +
                     " m_time TEXT, m_xPoint TEXT NOT NULL," +
                     " m_yPoint TEXT NOT NULL," +
                     " FOREIGN KEY(d_date) REFERENCES diary(d_date)" +
                     ")";
+
             String imageTable = "image(i_number INTEGER PRIMARY KEY AUTOINCREMENT," +
                     " d_date TEXT NOT NULL," +
                     " i_path TEXT NOT NULL" +
