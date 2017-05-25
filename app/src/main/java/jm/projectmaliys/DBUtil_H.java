@@ -78,8 +78,12 @@ public class DBUtil_H {
             db.execSQL(createQuery + mapTable);
             db.execSQL(createQuery + imageTable);
 
+            //region 테스트용 하드코딩
             String sql = "INSERT INTO diary(d_date, d_weather, d_content) VALUES ('2017/05/25', '맑음', '힘들다..')";
             db.execSQL(sql);
+            sql = "INSERT INTO diary(d_date, d_weather, d_content) VALUES ('2017/05/24', '맑음', '아무말이나 해봅시다 우장창창은 리쌍 와장창은 이말년')";
+            db.execSQL(sql);
+            //endregion
 
             Toast.makeText(_context, "DB is opened", Toast.LENGTH_SHORT).show();
         }
