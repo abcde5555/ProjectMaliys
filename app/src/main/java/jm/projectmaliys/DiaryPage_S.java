@@ -197,5 +197,4 @@ public class DiaryPage_S extends AppCompatActivity
             }
         }
     }
-
 }
