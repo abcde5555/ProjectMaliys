@@ -2,6 +2,7 @@ package jm.projectmaliys;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -24,9 +25,11 @@ public class GallaryActivity_H extends AppCompatActivity {
 
     private static final String TAG = "GallActivity";
     private static final int PICK_FROM_ALBUM = 1;
-    private static final int PICK_FROM_DB = 2;
+    private String dateFromIntent;
 
     private RecyclerView recyclerView;
+
+    private DBUtil_H databaseUtil;
 
     private GallaryAdapter adapter;
     private ArrayList<Uri> photos;
@@ -36,8 +39,10 @@ public class GallaryActivity_H extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_gallary_h);
 
-        initViewAndDataSet();
+        databaseUtil = new DBUtil_H(getApplicationContext());
+        dateFromIntent = getIntent().getStringExtra("date");
 
+        initViewAndDataSet();
         initEventListener(); // 초기화된 뷰에 이벤트 리스너 등록
     }
 
@@ -46,7 +51,6 @@ public class GallaryActivity_H extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_daily_gall);
 
         photos = new ArrayList<>(); // 갤러리에 연결될 데이터셋
-        // (select from 문으로 얻어오는 메서드 작성해서 교체할 것)
 
         // 어댑터 생성 및 설정
         adapter = new GallaryAdapter(photos);
@@ -58,7 +62,19 @@ public class GallaryActivity_H extends AppCompatActivity {
         Button addImageButton = (Button)findViewById(R.id.btn_add_image);
         addImageButton.setOnClickListener(new OnAddImageClickListener());
 
+        initDataSet();
+    }
+
+    private void initDataSet() {
         // DB에서 가져온 이미지 Uri를 데이터셋에 추가
+        String imageSql = "SELECT i_path FROM IMAGE WHERE D_DATE = ? ";
+        String dateFromIntent = getIntent().getStringExtra("date");
+
+        Cursor imageCursor = databaseUtil.executeQuery(imageSql, new String[] {dateFromIntent});
+        while (imageCursor.moveToNext()) {
+            String uriString = imageCursor.getString(imageCursor.getColumnIndex("i_path"));
+            photos.add(Uri.parse(uriString));
+        }
 
         adapter.notifyDataSetChanged(); // 어댑터에 데이터셋의 변화를 알려줌
     }
@@ -84,8 +100,10 @@ public class GallaryActivity_H extends AppCompatActivity {
             Uri imageUri = data.getData();
             photos.add(imageUri);
             adapter.notifyDataSetChanged();
-        } else if (requestCode == PICK_FROM_DB) {
-            // 구현해야 함
+
+            String insertSql = "INSERT INTO image(d_date, i_path) VALUES (" +
+                    dateFromIntent + ", " + imageUri + ")";
+            databaseUtil.executeDML(insertSql);
         }
     }
 
