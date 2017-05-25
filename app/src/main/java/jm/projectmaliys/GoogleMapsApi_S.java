@@ -55,7 +55,7 @@ public class GoogleMapsApi_S extends Fragment
 
     private GoogleMap googleMap = null;
     private MapView mapView = null;
-    private GoogleApiClient googleApiClient = null;
+    private GoogleApiClient googleApiClient = null; //구글맵 API 인스턴스 생성
     private Marker currentMarker = null;
 
     private final static int MAXENTRIES = 5;
