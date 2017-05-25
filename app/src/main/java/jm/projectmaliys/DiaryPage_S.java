@@ -38,15 +38,6 @@ public class DiaryPage_S extends AppCompatActivity
         }
 
         int position = getIntent().getIntExtra(EXTRA_POSITION, 0);
-        Resources resources = getResources();
-        String[] diaryDate = resources.getStringArray(R.array.diary_date);
-        String[] diaryContents = resources.getStringArray(R.array.diary_contents);
-        //TextView diaryContent = (TextView) findViewById(R.id.diary_content);
-        String[] diaryAvator = resources.getStringArray(R.array.diary_avator);
-        TypedArray diaryPictures = resources.obtainTypedArray(R.array.diary_picture);
-
-        diaryPictures.recycle();
-
         // 대표 사진
         ImageView diaryPicture = (ImageView) findViewById(R.id.image_main);
         diaryPicture.setOnClickListener(new OnImageClickListener());
@@ -58,8 +49,9 @@ public class DiaryPage_S extends AppCompatActivity
 
     private void initView(DiaryModel_H detail) {
         // 대표 사진
-        ((ImageView)findViewById(R.id.image_main)).setImageURI(detail.getImage());
-
+        if (detail.getImage() != null) {
+            ((ImageView) findViewById(R.id.image_main)).setImageURI(detail.getImage());
+        }
         // 본문 내용
         EditText editContent = (EditText)findViewById(R.id.editText);
         editContent.setText(detail.getContent());
@@ -70,15 +62,19 @@ public class DiaryPage_S extends AppCompatActivity
         RadioButton cloud = (RadioButton)findViewById(R.id.rb_cloud);
         RadioButton rain = (RadioButton)findViewById(R.id.rb_rain);
         RadioButton snow = (RadioButton)findViewById(R.id.rb_snow);
-        if (sun.getText().toString().equals(detail.getWeather())) {
-            sun.setChecked(true);
-        } else if (cloud.getText().toString().equals(detail.getWeather())) {
-            cloud.setChecked(true);
-        } else if (rain.getText().toString().equals(detail.getWeather())) {
-            rain.setChecked(true);
-        } else if (snow.getText().toString().equals(detail.getWeather())) {
-            snow.setChecked(true);
-        }
+
+        if (detail.getWeather().equals(sun.getText().toString()))
+            weathers.check(sun.getId());
+
+        else if (detail.getWeather().equals(cloud.getText().toString()))
+            weathers.check(cloud.getId());
+
+        else if (detail.getWeather().equals(rain.getText().toString()))
+            weathers.check(rain.getId());
+
+        else if (detail.getWeather().equals(snow.getText().toString()))
+            weathers.check(snow.getId());
+
     }
 
     // DB에서 데이터 불러오기
@@ -134,22 +130,7 @@ public class DiaryPage_S extends AppCompatActivity
     private class onWeatherCheckedChangeListener implements RadioGroup.OnCheckedChangeListener {
         @Override
         public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-            switch (checkedId) {
-                case R.id.rb_sun:
-                    weatherStr = ((RadioButton)findViewById(R.id.rb_sun)).getText().toString();
-                    break;
-                case R.id.rb_cloud:
-                    weatherStr = ((RadioButton)findViewById(R.id.rb_cloud)).getText().toString();
-                    break;
-                case R.id.rb_rain:
-                    weatherStr = ((RadioButton)findViewById(R.id.rb_rain)).getText().toString();
-                    break;
-                case R.id.rb_snow:
-                    weatherStr = ((RadioButton)findViewById(R.id.rb_snow)).getText().toString();
-                    break;
-                default:
-                    break;
-            }
+            weatherStr = ((RadioButton)findViewById(checkedId)).getText().toString();
         }
     }
 
