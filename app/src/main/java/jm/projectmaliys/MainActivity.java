@@ -11,8 +11,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = new Intent(this, LoadingPage_M.class);
-//        Intent intent = new Intent(this, TestGoogleMap.class);
+//        Intent intent = new Intent(this, LoadingPage_M.class);
+        Intent intent = new Intent(this, TestMap.class);
 //        Intent intent = new Intent(this, DiaryPage_S.class);
         startActivity(intent);  //로딩페이지 시작
         this.finish();
