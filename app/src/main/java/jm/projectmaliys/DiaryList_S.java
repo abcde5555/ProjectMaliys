@@ -130,7 +130,7 @@ public class DiaryList_S extends Fragment {
                         .setPositiveButton("네", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                db에서_제거_및_뷰_모델에서도_삭제_후_어댑터에게_알려주기까지
+                                //db에서_제거_및_뷰_모델에서도_삭제_후_어댑터에게_알려주기까지
                             }
                         }).setNegativeButton("아니요", new DialogInterface.OnClickListener() {
                     @Override
