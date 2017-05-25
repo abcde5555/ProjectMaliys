@@ -34,13 +34,13 @@
         </activity>
         <activity android:name=".LoadingPage_M">
         </activity>
+        <activity android:name=".TagChoice_M">
+        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDTyjvqwE09EsAjLCe8_9UWKXie0oLXEQ0"/>
 
-        <activity android:name=".TagChoice_M">
-        </activity>
     </application>
 
 
