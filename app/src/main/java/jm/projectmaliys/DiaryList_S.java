@@ -17,12 +17,12 @@ import android.widget.TextView;
 public class DiaryList_S extends Fragment {
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
 
-        //리사이클러뷰
-        RecyclerView recyclerView = (RecyclerView) inflater.inflate(
-                R.layout.recycler_view_s, container, false);
+        //리사이클러 뷰
+        RecyclerView recyclerView
+                = (RecyclerView)inflater.inflate(R.layout.recycler_view_s, container, false);
         ContentAdapter adapter = new ContentAdapter(recyclerView.getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
@@ -32,7 +32,7 @@ public class DiaryList_S extends Fragment {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        //리스트- 썸네일, 날짜, 간단한 내용
+        //리스트 - 썸네일, 날짜, 간단한 내용
         public ImageView avator;
         public TextView name;
         public TextView briefcontent;
@@ -42,21 +42,22 @@ public class DiaryList_S extends Fragment {
             avator = (ImageView) itemView.findViewById(R.id.list_avatar);
             name = (TextView) itemView.findViewById(R.id.list_title);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Context context = v.getContext();
-                    Intent intent = new Intent(context, DiaryPage_S.class);
-                    intent.putExtra(DiaryPage_S.EXTRA_POSITION, getAdapterPosition());
-                    context.startActivity(intent);
-                }
-            });
+            itemView.setOnClickListener(new OnItemViewClickListener());
+        }
+
+        private class OnItemViewClickListener implements View.OnClickListener {
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+                Intent intent = new Intent(context, DiaryPage_S.class);
+                intent.putExtra(DiaryPage_S.EXTRA_POSITION, getAdapterPosition());
+                context.startActivity(intent);
+            }
         }
     }
 
-    /**
-     * Adapter to display recycler view.
-     */
+
+    // Adapter to display recycler view.
     public static class ContentAdapter extends RecyclerView.Adapter<ViewHolder> {
         // Set numbers of List in RecyclerView.
         private static final int LENGTH = 18;
