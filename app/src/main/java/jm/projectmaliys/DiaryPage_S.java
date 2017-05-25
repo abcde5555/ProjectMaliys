@@ -1,6 +1,5 @@
 package jm.projectmaliys;
 
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.Resources;
@@ -66,6 +65,29 @@ public class DiaryPage_S extends AppCompatActivity
                 (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.activity_google_maps_api__s, container, true);
 
+    }
+
+    // 날씨 선택 버튼에 대한 리스너
+    private class onWeatherCheckedChangeListener implements RadioGroup.OnCheckedChangeListener {
+        @Override
+        public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+            switch (checkedId) {
+                case R.id.rb_sun:
+                    weatherStr = ((RadioButton)findViewById(R.id.rb_sun)).getText().toString();
+                    break;
+                case R.id.rb_cloud:
+                    weatherStr = ((RadioButton)findViewById(R.id.rb_cloud)).getText().toString();
+                    break;
+                case R.id.rb_rain:
+                    weatherStr = ((RadioButton)findViewById(R.id.rb_rain)).getText().toString();
+                    break;
+                case R.id.rb_snow:
+                    weatherStr = ((RadioButton)findViewById(R.id.rb_snow)).getText().toString();
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     public void onBtnRecordClicked(View v)
@@ -176,26 +198,4 @@ public class DiaryPage_S extends AppCompatActivity
         }
     }
 
-    // 날씨 선택 버튼에 대한 리스너
-    private class onWeatherCheckedChangeListener implements RadioGroup.OnCheckedChangeListener {
-        @Override
-        public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-            switch (checkedId) {
-                case R.id.rb_sun:
-                    weatherStr = ((RadioButton)findViewById(R.id.rb_sun)).getText().toString();
-                    break;
-                case R.id.rb_cloud:
-                    weatherStr = ((RadioButton)findViewById(R.id.rb_cloud)).getText().toString();
-                    break;
-                case R.id.rb_rain:
-                    weatherStr = ((RadioButton)findViewById(R.id.rb_rain)).getText().toString();
-                    break;
-                case R.id.rb_snow:
-                    weatherStr = ((RadioButton)findViewById(R.id.rb_snow)).getText().toString();
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
 }
