@@ -2,6 +2,7 @@ package jm.projectmaliys;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.media.MediaPlayer;
@@ -25,11 +26,12 @@ public class DiaryPage_S extends AppCompatActivity
     public static final String EXTRA_POSITION = "position";
 
     static final String AUDIO_URL = "http://sites.google.com/site/ubiaccessmobile/sample_audio.amr";
-
     final private static String RECORDED_FILE = "/sdcard/recorded.mp4";
 
     private MediaPlayer mediaPlayer;
     private int playbackPosition = 0;
+
+    private String date;
 
     MediaPlayer player;
     MediaRecorder recorder;
@@ -41,6 +43,9 @@ public class DiaryPage_S extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary_page__s);
 
+        date = getIntent().getStringExtra("date");
+
+        // 데이터 불러오기 (arrays.xml -> db) 수정해야됨
         int position = getIntent().getIntExtra(EXTRA_POSITION, 0);
         Resources resources = getResources();
         String[] diaryDate = resources.getStringArray(R.array.diary_date);
@@ -48,8 +53,12 @@ public class DiaryPage_S extends AppCompatActivity
         //TextView diaryContent = (TextView) findViewById(R.id.diary_content);
         String[] diaryAvator = resources.getStringArray(R.array.diary_avator);
         TypedArray diaryPictures = resources.obtainTypedArray(R.array.diary_picture);
-        ImageView diaryPicture = (ImageView) findViewById(R.id.image);
+
         diaryPictures.recycle();
+
+        // 대표 사진
+        ImageView diaryPicture = (ImageView) findViewById(R.id.image_main);
+        diaryPicture.setOnClickListener(new OnImageClickListener());
 
         // 날씨 선택 버튼(라디오버튼)
         RadioGroup weathers = (RadioGroup)findViewById(R.id.weathers);
@@ -57,14 +66,22 @@ public class DiaryPage_S extends AppCompatActivity
 
     }
 
-    public void onBtnMapClicked(View v)
-    {
-        LinearLayout container =
-                (LinearLayout) findViewById(R.id.action_container);
-        LayoutInflater inflater =
-                (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    // 지도 화면 켜기
+    public void onBtnMapClicked(View v) {
+        LinearLayout container = (LinearLayout) findViewById(R.id.action_container);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.activity_google_maps_api__s, container, true);
 
+    }
+
+    // 갤러리 화면으로 이동
+    private class OnImageClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            Intent intentForGallary = new Intent(DiaryPage_S.this, GallaryActivity_H.class);
+            intentForGallary.putExtra("date", date); // 해당 일자를 인텐트로 넘겨줌
+            startActivity(intentForGallary);
+        }
     }
 
     // 날씨 선택 버튼에 대한 리스너
@@ -90,11 +107,9 @@ public class DiaryPage_S extends AppCompatActivity
         }
     }
 
-    public void onBtnRecordClicked(View v)
-    {
-        if (recorder != null){
+    public void onBtnRecordClicked(View v) {
+        if (recorder != null) {
             recorder.stop();
-            recorder.release();
             recorder.release();
             recorder = null;
         }
@@ -196,5 +211,11 @@ public class DiaryPage_S extends AppCompatActivity
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        //insertDiary();
+        super.onBackPressed();
     }
 }

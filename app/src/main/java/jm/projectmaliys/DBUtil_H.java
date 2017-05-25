@@ -55,7 +55,7 @@ public class DBUtil_H {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            String createQuery = "CREATE TABLE IF NOT EXIST ";
+            String createQuery = "CREATE TABLE IF NOT EXISTS ";
 
             String diaryTable = "diary(d_date TEXT PRIMARY KEY," +
                     " d_weather TEXT," +
@@ -70,13 +70,16 @@ public class DBUtil_H {
 
             String imageTable = "image(i_number INTEGER PRIMARY KEY AUTOINCREMENT," +
                     " d_date TEXT NOT NULL," +
-                    " i_path TEXT NOT NULL" +
+                    " i_path TEXT NOT NULL," +
                     " FOREIGN KEY(d_date) REFERENCES diary(d_date)" +
                     ")";
 
             db.execSQL(createQuery + diaryTable);
             db.execSQL(createQuery + mapTable);
             db.execSQL(createQuery + imageTable);
+
+            String sql = "INSERT INTO diary(d_date, d_weather, d_content) VALUES ('2017/05/25', '맑음', '힘들다..')";
+            db.execSQL(sql);
 
             Toast.makeText(_context, "DB is opened", Toast.LENGTH_SHORT).show();
         }

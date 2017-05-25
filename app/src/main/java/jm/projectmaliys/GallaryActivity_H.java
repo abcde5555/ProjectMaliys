@@ -154,9 +154,10 @@ public class GallaryActivity_H extends AppCompatActivity {
         ImageView image = (ImageView)layout.findViewById(R.id.img_expanded);
         image.setImageURI(uri);
 
-        builder.setView(layout);
-        builder.setNegativeButton("닫기", new OnCloseButtonListener());
-        builder.create().show();
+        builder.setView(layout)
+                .setNegativeButton("닫기", new OnCloseButtonListener())
+                .create()
+                .show();
     }
 
     // RecyclerView에 적용할 어댑터 클래스

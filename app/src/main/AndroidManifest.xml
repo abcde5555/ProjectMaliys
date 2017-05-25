@@ -28,14 +28,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".MenuManager_M">
-        </activity>
-        <activity android:name=".DiaryPage_S">
-        </activity>
-        <activity android:name=".LoadingPage_M">
-        </activity>
-        <activity android:name=".TagChoice_M">
-        </activity>
+        <activity android:name=".MenuManager_M"/>
+        <activity android:name=".DiaryPage_S"/>
+        <activity android:name=".LoadingPage_M"/>
+        <activity android:name=".TagChoice_M"/>
+        <activity android:name=".GallaryActivity_H"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
