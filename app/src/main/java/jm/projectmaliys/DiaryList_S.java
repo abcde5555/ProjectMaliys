@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class DiaryList_S extends Fragment {
 
     private static final int SAVED_DIARY = 1;
-    private ArrayList<ListModel_H> listModels;
+    private ArrayList<DiaryModel_H> listModels;
     private static String date;
 
     ContentAdapter adapter;
@@ -55,8 +55,8 @@ public class DiaryList_S extends Fragment {
         while (listCursor.moveToNext()) {
             date = listCursor.getString(listCursor.getColumnIndex("d_date"));
             String contentString = listCursor.getString(listCursor.getColumnIndex("d_content"));
-            if(contentString.length() > 20) {
-                contentString = contentString.substring(0, 17).concat("...");
+            if(contentString.length() > 30) {
+                contentString = contentString.substring(0, 27).concat("...");
             }
 
             // 이미지 테이블 쿼리
@@ -69,10 +69,10 @@ public class DiaryList_S extends Fragment {
                 Uri imageUri = repImageCursor.moveToFirst() ? // 커서를 첫 행에 두어 이미지 하나만 가져온다
                         Uri.parse(imagePathString) : null;
 
-                ListModel_H listModel = new ListModel_H(date, contentString, imageUri);
+                DiaryModel_H listModel = new DiaryModel_H(date, contentString, imageUri);
                 listModels.add(listModel);
             }
-            ListModel_H listModel = new ListModel_H(date, contentString, null);
+            DiaryModel_H listModel = new DiaryModel_H(date, contentString, null);
             listModels.add(listModel);
         }
 
@@ -120,9 +120,9 @@ public class DiaryList_S extends Fragment {
     private static class ContentAdapter extends RecyclerView.Adapter<ViewHolder> {
 
         //Set models of List in RecyclerView.
-        private final ArrayList<ListModel_H> _listModels;
+        private final ArrayList<DiaryModel_H> _listModels;
 
-        public ContentAdapter(ArrayList<ListModel_H> listModels) {
+        public ContentAdapter(ArrayList<DiaryModel_H> listModels) {
             _listModels = listModels;
         }
 
@@ -133,7 +133,7 @@ public class DiaryList_S extends Fragment {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            ListModel_H listModel = _listModels.get(position);
+            DiaryModel_H listModel = _listModels.get(position);
             holder.avator.setImageURI(listModel.getImage());
             holder.textDate.setText(listModel.getDate());
             holder.textBriefcontent.setText(listModel.getContent());

@@ -2,13 +2,17 @@ package jm.projectmaliys;
 
 import android.net.Uri;
 
-public class ListModel_H {
+public class DiaryModel_H {
 
     private String _date;
     private String _content;
     private Uri _image;
+    private String _weather;
 
-    public ListModel_H(String date, String content, Uri image) {
+    public DiaryModel_H() {
+    }
+
+    public DiaryModel_H(String date, String content, Uri image) {
         _date = date;
         _content = content;
         _image = image;
@@ -38,4 +42,11 @@ public class ListModel_H {
         _image = image;
     }
 
+    public String getWeather() {
+        return _weather;
+    }
+
+    public void setWeather(String weather) {
+        _weather = weather;
+    }
 }

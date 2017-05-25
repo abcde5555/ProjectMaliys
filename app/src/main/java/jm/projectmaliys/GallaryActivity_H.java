@@ -102,7 +102,7 @@ public class GallaryActivity_H extends AppCompatActivity {
             adapter.notifyDataSetChanged();
 
             String insertSql = "INSERT INTO image(d_date, i_path) VALUES (" +
-                    dateFromIntent + ", " + imageUri + ")";
+                    dateFromIntent + ", " + imageUri.toString() + ")";
             databaseUtil.executeDML(insertSql);
         }
     }

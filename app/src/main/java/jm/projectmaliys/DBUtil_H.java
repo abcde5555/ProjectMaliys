@@ -81,7 +81,9 @@ public class DBUtil_H {
             //region 테스트용 하드코딩
             String sql = "INSERT INTO diary(d_date, d_weather, d_content) VALUES ('2017/05/25', '맑음', '힘들다..')";
             db.execSQL(sql);
-            sql = "INSERT INTO diary(d_date, d_weather, d_content) VALUES ('2017/05/24', '맑음', '아무말이나 해봅시다 우장창창은 리쌍 와장창은 이말년')";
+            sql = "INSERT INTO diary(d_date, d_weather, d_content) VALUES ('2017/05/24', '맑음', '아무말이나 해봅시다 우장창창은 리쌍 와장창은 이말년 그리고 나는 쿠와아앙')";
+            db.execSQL(sql);
+            sql = "INSERT INTO diary(d_date, d_weather, d_content) VALUES ('2017/05/23', '비', '테스트')";
             db.execSQL(sql);
             //endregion
 
