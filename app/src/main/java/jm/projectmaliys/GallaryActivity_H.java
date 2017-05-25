@@ -68,7 +68,6 @@ public class GallaryActivity_H extends AppCompatActivity {
     private void initDataSet() {
         // DB에서 가져온 이미지 Uri를 데이터셋에 추가
         String imageSql = "SELECT i_path FROM IMAGE WHERE D_DATE = ? ";
-        String dateFromIntent = getIntent().getStringExtra("date");
 
         Cursor imageCursor = databaseUtil.executeQuery(imageSql, new String[] {dateFromIntent});
         while (imageCursor.moveToNext()) {
