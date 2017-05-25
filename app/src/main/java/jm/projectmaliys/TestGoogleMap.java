@@ -64,9 +64,10 @@ public class TestGoogleMap extends FragmentActivity implements OnMapReadyCallbac
 ////        mGoogleMap = ((SupportMapFragment) getSupportFragmentManager()
 ////                .findFragmentById(R.id.fragment)).getMap();
 //
-//        // 맵 위치를 이동하기
+//        // 맵 위치를 이동하기    // 센터 좌표(37.542212, 126.841319)
 //        CameraUpdate update = CameraUpdateFactory.newLatLng(
 //                new LatLng(37.478911, 127.012339));
+
 //        // 위도,경도
 //        mGoogleMap.moveCamera(update);
 //
