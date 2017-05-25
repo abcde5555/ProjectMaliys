@@ -2,8 +2,6 @@ package jm.projectmaliys;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,43 +15,49 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-public class DiaryPage_S extends AppCompatActivity
-{
+public class DiaryPage_S extends AppCompatActivity {
     public static final String EXTRA_POSITION = "position";
 
     private String date;
     private static String weatherStr;
+    private static String contentStr;
+
+    private ImageView diaryPicture;
+    private RadioGroup weathers;
+    private EditText editContent;
+
+    private Context context = getApplicationContext();
+    private DBUtil_H databaseUtil = new DBUtil_H(context);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary_page__s);
 
+        int position = getIntent().getIntExtra(EXTRA_POSITION, 0);
         date = getIntent().getStringExtra("date");
 
-        // 데이터 불러오기 수정 중 (뷰 초기화 메서드)
-        DiaryModel_H detail = getDataFromDatabase();
-        if (detail != null) {
+        diaryPicture = (ImageView) findViewById(R.id.image_main);
+        weathers = (RadioGroup) findViewById(R.id.weathers);
+        editContent = (EditText)findViewById(R.id.editText);
+
+        if (position != 0) {
+            // DB에서 불러온 데이터 표시
+            DiaryModel_H detail = getDataFromDatabase();
             initView(detail);
         }
 
-        int position = getIntent().getIntExtra(EXTRA_POSITION, 0);
-        // 대표 사진
-        ImageView diaryPicture = (ImageView) findViewById(R.id.image_main);
         diaryPicture.setOnClickListener(new OnImageClickListener());
-
-        // 날씨 선택 버튼(라디오버튼)
-        RadioGroup weathers = (RadioGroup)findViewById(R.id.weathers);
         weathers.setOnCheckedChangeListener(new onWeatherCheckedChangeListener());
+        editContent.setOnFocusChangeListener(new OnEditorFocusChangeListener());
     }
 
     private void initView(DiaryModel_H detail) {
         // 대표 사진
-        if (detail.getImage() != null) {
-            ((ImageView) findViewById(R.id.image_main)).setImageURI(detail.getImage());
-        }
+        if (detail.getImage() != null)
+            diaryPicture.setImageURI(detail.getImage());
+
         // 본문 내용
-        EditText editContent = (EditText)findViewById(R.id.editText);
         editContent.setText(detail.getContent());
 
         // 날씨 선택
@@ -74,26 +78,23 @@ public class DiaryPage_S extends AppCompatActivity
 
         else if (detail.getWeather().equals(snow.getText().toString()))
             weathers.check(snow.getId());
-
     }
 
     // DB에서 데이터 불러오기
     private DiaryModel_H getDataFromDatabase() {
-        Context context = getApplicationContext();
-        DBUtil_H databaseUtil = new DBUtil_H(context);
-
         DiaryModel_H diaryModel = new DiaryModel_H();
 
         // 다이어리 테이블 쿼리
         String selectSql = "SELECT d_weather, d_content FROM diary WHERE d_date = ?";
-        String[] parameters = new String[] {date};
+        String[] parameters = new String[] { date };
+
         Cursor diaryCursor = databaseUtil.executeQuery(selectSql, parameters);
         if (diaryCursor.moveToFirst()) {
-            String weatherString = diaryCursor.getString(diaryCursor.getColumnIndex("d_weather"));
-            String contentString = diaryCursor.getString(diaryCursor.getColumnIndex("d_content"));
+            weatherStr = diaryCursor.getString(diaryCursor.getColumnIndex("d_weather"));
+            contentStr = diaryCursor.getString(diaryCursor.getColumnIndex("d_content"));
 
-            diaryModel.setWeather(weatherString);
-            diaryModel.setContent(contentString);
+            diaryModel.setWeather(weatherStr);
+            diaryModel.setContent(contentStr);
         }
 
         // 대표 이미지 쿼리
@@ -134,9 +135,45 @@ public class DiaryPage_S extends AppCompatActivity
         }
     }
 
+    // 본문
+    private class OnEditorFocusChangeListener implements View.OnFocusChangeListener {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if (!hasFocus)
+                contentStr = ((EditText)v).getText().toString();
+        }
+    }
+
     @Override
     public void onBackPressed() {
-        //insertDiary();
+        // 일기의 추가와 갱신을 구분하기 위해
+        // DB에 해당 날짜 일기가 있는지 확인
+        String queryForCheck = "SELECT d_date FROM diary WHERE d_date = ?";
+        String[] parametersForQuery = new String[] { date };
+        Cursor todayCursor = databaseUtil.executeQuery(queryForCheck, parametersForQuery);
+
+        if (todayCursor.getColumnCount() == 1) {
+            // 일기 수정
+            String queryForUpdate = "UPDATE diary SET d_weather = " + weatherStr + ", d_content = "+ contentStr +" WHERE d_date = " + date;
+            if (databaseUtil.executeDML(queryForUpdate) != 1)
+                throw new RuntimeException();
+
+            // 지도 좌표 수정
+            queryForUpdate = "map";
+            if (databaseUtil.executeDML(queryForUpdate) != 1)
+                throw new RuntimeException();
+        } else {
+            // 일기 추가
+            String queryForInsert = "INSERT INTO diary(d_date, d_weather, d_content)";
+            if (databaseUtil.executeDML(queryForInsert) != 1)
+                throw new RuntimeException();
+
+            // 지도 좌표 추가
+            queryForInsert = "map";
+            if (databaseUtil.executeDML(queryForInsert) != 1)
+                throw new RuntimeException();
+        }
+
         super.onBackPressed();
     }
 }

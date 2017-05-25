@@ -17,13 +17,20 @@ public class DBUtil_H {
     private Context _context;
     private SQLiteDatabase db;
 
+    /**
+     * Constructor
+     * */
     public DBUtil_H(Context context) {
         _context = context;
         OpenHelper openHelper = new OpenHelper(context, dbName, null, dbVersion);
         db = openHelper.getWritableDatabase();
     }
 
-    // INSET, UPDATE, DELETE 문 실행
+    /**
+     * INSET, UPDATE, DELETE 문 실행
+     * @param sql 실행할 쿼리문
+     * @return 성공 시 1, 실패 시 0
+     */
     public int executeDML(String sql) {
         int result = 0;
         try {
@@ -35,7 +42,12 @@ public class DBUtil_H {
         return result;
     }
 
-    // SELECT 문 실행
+    /**
+     * SELECT 문 실행
+     * @param sql 실행할 쿼리문, where 절에 ? 사용 가능
+     * @param selectionArgs 쿼리문에 사용된 ? 위치에 바인딩할 값들의 배열
+     * @author Charlie
+     * */
     public Cursor executeQuery(String sql, String[] selectionArgs) {
         Cursor result = null;
         try {
@@ -46,10 +58,13 @@ public class DBUtil_H {
         return result;
     }
 
-    // 데이터베이스를 열거나 업그레이드하는 것을 도와주는 내부 클래스
+    /**
+     * 데이터베이스를 열거나 업그레이드하는 것을 도와주는 내부 클래스
+     * @author Charlie
+     * */
     private class OpenHelper extends SQLiteOpenHelper {
 
-        public OpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+        private OpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
             super(context, name, null, version);
         }
 
@@ -58,12 +73,13 @@ public class DBUtil_H {
             String createQuery = "CREATE TABLE IF NOT EXISTS ";
 
             String diaryTable = "diary(d_date TEXT PRIMARY KEY," +
-                    " d_weather TEXT," +
+                    " d_weather TEXT NOT NULL," +
                     " d_content TEXT NOT NULL)";
 
             String mapTable = "map(m_number INTEGER PRIMARY KEY AUTOINCREMENT," +
                     " d_date TEXT NOT NULL," +
-                    " m_time TEXT, m_xPoint TEXT NOT NULL," +
+                    " m_time TEXT," +
+                    " m_xPoint TEXT NOT NULL," +
                     " m_yPoint TEXT NOT NULL," +
                     " FOREIGN KEY(d_date) REFERENCES diary(d_date)" +
                     ")";
