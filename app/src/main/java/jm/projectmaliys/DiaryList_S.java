@@ -2,13 +2,11 @@ package jm.projectmaliys;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,9 +24,6 @@ public class DiaryList_S extends Fragment {
     private static String date;
 
     ContentAdapter adapter;
-
-    // 이거 어디다 써야할까요 -> viewHolder
-    String deleteQuery = "DELETE FROM diary WHERE d_date = " + date;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -49,14 +44,14 @@ public class DiaryList_S extends Fragment {
 
     private void getDataFromDatabase() {
         Context context = getActivity().getApplicationContext();
-        DBUtil_H databaseUtil = new DBUtil_H(context);
+        DatabaseHelper_H databaseUtil = DatabaseHelper_H.getInstance(context);
 
         listModels = new ArrayList<>();
 
         // 다이어리 테이블 쿼리
-        String selectionSql = "SELECT d_date, d_content FROM diary d_date DESC"; // 쿼리문 작성
+        String selectionSql = "SELECT d_date, d_content FROM diary ORDER BY d_date DESC"; // 쿼리문 작성
 
-        Cursor listCursor = databaseUtil.executeQuery(selectionSql, null);
+        Cursor listCursor = databaseUtil.executeQuery(selectionSql, new String[]{});
         while (listCursor.moveToNext()) {
             date = listCursor.getString(listCursor.getColumnIndex("d_date"));
             String contentString = listCursor.getString(listCursor.getColumnIndex("d_content"));
@@ -69,7 +64,7 @@ public class DiaryList_S extends Fragment {
             String[] parameters = new String[] {date};// 쿼리문 where 절에 들어갈 인자 (?와 매치)
 
             Cursor repImageCursor = databaseUtil.executeQuery(selectImage, parameters);
-            if (repImageCursor.getCount() > 0) {
+            if (repImageCursor.moveToFirst()) {
                 String imagePathString = repImageCursor.getString(repImageCursor.getColumnIndex("i_path"));
                 Uri imageUri = repImageCursor.moveToFirst() ? // 커서를 첫 행에 두어 이미지 하나만 가져온다
                         Uri.parse(imagePathString) : null;
@@ -107,7 +102,7 @@ public class DiaryList_S extends Fragment {
             textBriefcontent = (TextView) itemView.findViewById(R.id.list_desc);
 
             itemView.setOnClickListener(new OnItemViewClickListener());
-            itemView.setOnLongClickListener(new OnItemViewLongClickListener());
+            //itemView.setOnLongClickListener(new OnItemViewLongClickListener());
         }
 
         private class OnItemViewClickListener implements View.OnClickListener {
@@ -121,28 +116,6 @@ public class DiaryList_S extends Fragment {
             }
         }
 
-        private class OnItemViewLongClickListener implements View.OnLongClickListener {
-            @Override
-            public boolean onLongClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                builder.setTitle("삭제 확인")
-                        .setMessage("정말로 삭제하시겠어요?")
-                        .setPositiveButton("네", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                //db에서_제거_및_뷰_모델에서도_삭제_후_어댑터에게_알려주기까지
-                            }
-                        }).setNegativeButton("아니요", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                AlertDialog dialog = builder.create();
-                dialog.show();
-                return false;
-            }
-        }
     }
 
     // Adapter to display recycler view.

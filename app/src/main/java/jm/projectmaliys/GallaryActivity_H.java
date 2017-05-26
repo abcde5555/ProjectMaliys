@@ -29,7 +29,7 @@ public class GallaryActivity_H extends AppCompatActivity {
 
     private RecyclerView recyclerView;
 
-    private DBUtil_H databaseUtil;
+    private DatabaseHelper_H databaseUtil;
 
     private GallaryAdapter adapter;
     private ArrayList<Uri> photos;
@@ -39,7 +39,8 @@ public class GallaryActivity_H extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_gallary_h);
 
-        databaseUtil = new DBUtil_H(getApplicationContext());
+        Log.d("GallaryActivity", "onCreate");
+        databaseUtil = DatabaseHelper_H.getInstance(getApplicationContext());
         dateFromIntent = getIntent().getStringExtra("date");
 
         initViewAndDataSet();
@@ -57,6 +58,7 @@ public class GallaryActivity_H extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+        recyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
 
         // 이미지 추가 버튼
         Button addImageButton = (Button)findViewById(R.id.btn_add_image);
@@ -68,8 +70,8 @@ public class GallaryActivity_H extends AppCompatActivity {
     private void initDataSet() {
         // DB에서 가져온 이미지 Uri를 데이터셋에 추가
         String imageSql = "SELECT i_path FROM IMAGE WHERE D_DATE = ? ";
-
-        Cursor imageCursor = databaseUtil.executeQuery(imageSql, new String[] {dateFromIntent});
+        DatabaseHelper_H databaseHelper = DatabaseHelper_H.getInstance(getApplicationContext());
+        Cursor imageCursor = databaseHelper.executeQuery(imageSql, new String[] {dateFromIntent});
         while (imageCursor.moveToNext()) {
             String uriString = imageCursor.getString(imageCursor.getColumnIndex("i_path"));
             photos.add(Uri.parse(uriString));
@@ -100,8 +102,8 @@ public class GallaryActivity_H extends AppCompatActivity {
             photos.add(imageUri);
             adapter.notifyDataSetChanged();
 
-            String insertSql = "INSERT INTO image(d_date, i_path) VALUES (" +
-                    dateFromIntent + ", " + imageUri.toString() + ")";
+            String insertSql = "INSERT INTO image(d_date, i_path) VALUES ('" +
+                    dateFromIntent + "', '" + imageUri.toString() + "')";
             if (databaseUtil.executeDML(insertSql) != 1)
                 throw new RuntimeException();
         }
@@ -190,7 +192,6 @@ public class GallaryActivity_H extends AppCompatActivity {
 
     // RecyclerView.ViewHolder 객체
     private class ViewHolder extends RecyclerView.ViewHolder {
-
         ImageView imageView;
 
         public ViewHolder(View itemView) {

@@ -26,8 +26,7 @@ public class DiaryPage_S extends AppCompatActivity {
     private RadioGroup weathers;
     private EditText editContent;
 
-    private Context context = getApplicationContext();
-    private DBUtil_H databaseUtil = new DBUtil_H(context);
+    private DatabaseHelper_H databaseUtil;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,6 +35,7 @@ public class DiaryPage_S extends AppCompatActivity {
 
         int position = getIntent().getIntExtra(EXTRA_POSITION, 0);
         date = getIntent().getStringExtra("date");
+        databaseUtil = DatabaseHelper_H.getInstance(getApplicationContext());
 
         diaryPicture = (ImageView) findViewById(R.id.image_main);
         weathers = (RadioGroup) findViewById(R.id.weathers);
@@ -100,12 +100,13 @@ public class DiaryPage_S extends AppCompatActivity {
         // 대표 이미지 쿼리
         selectSql = "SELECT i_path FROM image WHERE d_date = ?";
         Cursor imageCursor = databaseUtil.executeQuery(selectSql, parameters);
-        String imageString = imageCursor.getString(imageCursor.getColumnIndex("i_path"));
-        Uri imageUri = imageCursor.moveToFirst() ?
-                Uri.parse(imageString) : null;
+        if (imageCursor.moveToFirst()) {
+            String imageString = imageCursor.getString(imageCursor.getColumnIndex("i_path"));
+            Uri imageUri = imageCursor.moveToFirst() ?
+                    Uri.parse(imageString) : null;
 
-        diaryModel.setImage(imageUri);
-
+            diaryModel.setImage(imageUri);
+        }
         return diaryModel;
     }
 
@@ -146,6 +147,7 @@ public class DiaryPage_S extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
         // 일기의 추가와 갱신을 구분하기 위해
         // DB에 해당 날짜 일기가 있는지 확인
         String queryForCheck = "SELECT d_date FROM diary WHERE d_date = ?";
@@ -154,26 +156,26 @@ public class DiaryPage_S extends AppCompatActivity {
 
         if (todayCursor.getColumnCount() == 1) {
             // 일기 수정
-            String queryForUpdate = "UPDATE diary SET d_weather = " + weatherStr + ", d_content = "+ contentStr +" WHERE d_date = " + date;
+            String queryForUpdate = "UPDATE diary SET d_weather = '" + weatherStr +
+                    "', d_content = '"+ contentStr +"' WHERE d_date = '" + date + "'";
             if (databaseUtil.executeDML(queryForUpdate) != 1)
                 throw new RuntimeException();
 
             // 지도 좌표 수정
-            queryForUpdate = "map";
+            /*queryForUpdate = "map";
             if (databaseUtil.executeDML(queryForUpdate) != 1)
-                throw new RuntimeException();
+                throw new RuntimeException();*/
         } else {
             // 일기 추가
-            String queryForInsert = "INSERT INTO diary(d_date, d_weather, d_content)";
+            String queryForInsert = "INSERT INTO diary(d_date, d_weather, d_content) " +
+                    "VALUES ('" + date + "', '" + weatherStr + "', '" + contentStr + "')";
             if (databaseUtil.executeDML(queryForInsert) != 1)
                 throw new RuntimeException();
 
             // 지도 좌표 추가
-            queryForInsert = "map";
+            /*queryForInsert = "map";
             if (databaseUtil.executeDML(queryForInsert) != 1)
-                throw new RuntimeException();
+                throw new RuntimeException();*/
         }
-
-        super.onBackPressed();
     }
 }
