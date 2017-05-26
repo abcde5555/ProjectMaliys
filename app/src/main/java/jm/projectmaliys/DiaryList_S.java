@@ -39,6 +39,7 @@ public class DiaryList_S extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter.notifyItemChanged(0);
         return recyclerView;
     }
 
@@ -47,6 +48,7 @@ public class DiaryList_S extends Fragment {
         DatabaseHelper_H databaseUtil = DatabaseHelper_H.getInstance(context);
 
         listModels = new ArrayList<>();
+        listModels.add(0, null);
 
         // 다이어리 테이블 쿼리
         String selectionSql = "SELECT d_date, d_content FROM diary ORDER BY d_date DESC"; // 쿼리문 작성
@@ -102,7 +104,6 @@ public class DiaryList_S extends Fragment {
             textBriefcontent = (TextView) itemView.findViewById(R.id.list_desc);
 
             itemView.setOnClickListener(new OnItemViewClickListener());
-            //itemView.setOnLongClickListener(new OnItemViewLongClickListener());
         }
 
         private class OnItemViewClickListener implements View.OnClickListener {
@@ -138,9 +139,11 @@ public class DiaryList_S extends Fragment {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             DiaryModel_H listModel = _listModels.get(position);
-            holder.avator.setImageURI(listModel.getImage());
-            holder.textDate.setText(listModel.getDate());
-            holder.textBriefcontent.setText(listModel.getContent());
+            if (listModel != null) {
+                holder.avator.setImageURI(listModel.getImage());
+                holder.textDate.setText(listModel.getDate());
+                holder.textBriefcontent.setText(listModel.getContent());
+            }
         }
 
         @Override

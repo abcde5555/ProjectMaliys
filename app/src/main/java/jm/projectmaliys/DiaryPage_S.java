@@ -3,6 +3,7 @@ package jm.projectmaliys;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.icu.util.Calendar;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -14,6 +15,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class DiaryPage_S extends AppCompatActivity {
     public static final String EXTRA_POSITION = "position";
@@ -45,6 +50,11 @@ public class DiaryPage_S extends AppCompatActivity {
             // DB에서 불러온 데이터 표시
             DiaryModel_H detail = getDataFromDatabase();
             initView(detail);
+        } else {
+            // 일기를 새로 작성할 오늘 날짜를 가져온다
+            Date current = Calendar.getInstance(Locale.KOREA).getTime();
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy/MM/dd");
+            date = dateFormatter.format(current);
         }
 
         diaryPicture.setOnClickListener(new OnImageClickListener());
@@ -150,24 +160,22 @@ public class DiaryPage_S extends AppCompatActivity {
         super.onBackPressed();
         // 일기의 추가와 갱신을 구분하기 위해
         // DB에 해당 날짜 일기가 있는지 확인
-        String queryForCheck = "SELECT d_date FROM diary WHERE d_date = ?";
+        String queryForCheck = "SELECT * FROM diary WHERE d_date = ?";
         String[] parametersForQuery = new String[] { date };
         Cursor todayCursor = databaseUtil.executeQuery(queryForCheck, parametersForQuery);
 
-        if (todayCursor.moveToFirst()) {
-            String checkToday = todayCursor.getString(todayCursor.getColumnIndex("d_date"));
-            if (date.equals(checkToday)) {
-                // 일기 수정
-                String queryForUpdate = "UPDATE diary SET d_weather = '" + weatherStr +
-                        "', d_content = '" + contentStr + "' WHERE d_date = '" + date + "'";
-                if (databaseUtil.executeDML(queryForUpdate) != 1)
-                    throw new RuntimeException();
+        if (todayCursor.getCount() >= 1) {
+            // 일기 수정
+            String queryForUpdate = "UPDATE diary SET d_weather = '" + weatherStr +
+                    "', d_content = '" + contentStr + "' WHERE d_date = '" + date + "'";
+            if (databaseUtil.executeDML(queryForUpdate) != 1)
+                throw new RuntimeException();
 
                 // 지도 좌표 수정
             /*queryForUpdate = "map";
             if (databaseUtil.executeDML(queryForUpdate) != 1)
                 throw new RuntimeException();*/
-            }
+
         } else {
             // 일기 추가
             String queryForInsert = "INSERT INTO diary(d_date, d_weather, d_content) " +
