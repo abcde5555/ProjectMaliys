@@ -111,6 +111,8 @@ public class DiaryList_S extends Fragment {
                 Context context = v.getContext();
                 Intent intent = new Intent(context, DiaryPage_S.class);
                 intent.putExtra(DiaryPage_S.EXTRA_POSITION, getAdapterPosition());
+
+                date = textDate.getText().toString();
                 intent.putExtra("date", date);
                 context.startActivity(intent);
             }

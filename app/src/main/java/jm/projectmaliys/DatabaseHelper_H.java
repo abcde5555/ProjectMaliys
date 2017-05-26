@@ -66,7 +66,7 @@ public class DatabaseHelper_H extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String createQuery = "CREATE TABLE IF NOT EXISTS ";
 
-        String diaryTable = "diary(d_date TEXT PRIMARY KEY," +
+        String diaryTable = "diary(d_date TEXT UNIQUE PRIMARY KEY," +
                 " d_weather TEXT NOT NULL," +
                 " d_content TEXT NOT NULL)";
 

@@ -154,17 +154,20 @@ public class DiaryPage_S extends AppCompatActivity {
         String[] parametersForQuery = new String[] { date };
         Cursor todayCursor = databaseUtil.executeQuery(queryForCheck, parametersForQuery);
 
-        if (todayCursor.getColumnCount() == 1) {
-            // 일기 수정
-            String queryForUpdate = "UPDATE diary SET d_weather = '" + weatherStr +
-                    "', d_content = '"+ contentStr +"' WHERE d_date = '" + date + "'";
-            if (databaseUtil.executeDML(queryForUpdate) != 1)
-                throw new RuntimeException();
+        if (todayCursor.moveToFirst()) {
+            String checkToday = todayCursor.getString(todayCursor.getColumnIndex("d_date"));
+            if (date.equals(checkToday)) {
+                // 일기 수정
+                String queryForUpdate = "UPDATE diary SET d_weather = '" + weatherStr +
+                        "', d_content = '" + contentStr + "' WHERE d_date = '" + date + "'";
+                if (databaseUtil.executeDML(queryForUpdate) != 1)
+                    throw new RuntimeException();
 
-            // 지도 좌표 수정
+                // 지도 좌표 수정
             /*queryForUpdate = "map";
             if (databaseUtil.executeDML(queryForUpdate) != 1)
                 throw new RuntimeException();*/
+            }
         } else {
             // 일기 추가
             String queryForInsert = "INSERT INTO diary(d_date, d_weather, d_content) " +
