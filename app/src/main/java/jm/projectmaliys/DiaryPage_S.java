@@ -181,4 +181,5 @@ public class DiaryPage_S extends AppCompatActivity {
                 throw new RuntimeException();*/
         }
     }
+
 }

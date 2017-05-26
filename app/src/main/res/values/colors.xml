@@ -2,9 +2,12 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="white">#FFFFFF</color>
+    <color name="colorAccent">#ffdfc6</color>
+    <color name="white">#ffffff</color>
     <color name="dark_grey">#424242</color>
     <color name="medium_grey">#9E9E9E</color>
-    <color name="button_grey">#757575</color>
+    <color name="button_pink">#d46979</color>
+    <color name="button_babypink">#ffdfc6</color>
+    <color name="text_babypink">#ce546b</color>
+    <color name="text_bata">#eeeeee</color>
 </resources>
