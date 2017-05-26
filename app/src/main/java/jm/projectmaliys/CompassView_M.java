@@ -6,15 +6,15 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 
 /**
- * Created by jm on 2017-05-25.
+ * Created by jm on 2017-05-26.
  */
 
-public class TestCompassView  extends View {
+public class CompassView_M extends View {
     private Drawable mCompass;
     private float mAzimuth = 0;
     private int PADDING = 2;
 
-    public TestCompassView(Context context) {
+    public CompassView_M(Context context) {
         super(context);
         this.mCompass = context.getResources().getDrawable(R.drawable.arrow_n);
     }
@@ -44,3 +44,4 @@ public class TestCompassView  extends View {
         mAzimuth = aAzimuth;
     }
 }
+

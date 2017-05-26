@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="jm.projectmaliys.TestMap">
+    tools:context="jm.projectmaliys.GoogleMapView_M">
 
     <Button
         android:id="@+id/buttonFind"

@@ -45,14 +45,13 @@
         </activity>
         <activity android:name=".DiaryPage_S">
         </activity>
-        <activity android:name=".GallaryActivity_H">
-        </activity>
-        <activity android:name=".LoadingPage_M"
+        <activity
+            android:name=".LoadingPage_M"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
         </activity>
         <activity android:name=".TagChoice_M">
         </activity>
-        <activity android:name=".TestMap">
+        <activity android:name=".GoogleMapView_M">
         </activity>
     </application>
 
